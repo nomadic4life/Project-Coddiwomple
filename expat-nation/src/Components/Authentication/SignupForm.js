@@ -1,28 +1,27 @@
 import React from 'react';
 import FormInput from './FormInput'
 
-const LoginForm = props => {
+const SignupForm= props => {
   const { username, password, handleFormInput, handleLogin } = props;
   const valueType = [username, password];
-  const inputType = ["username", "password"];
+  const inputType = ["username", "password", "age", "location", "gender", "styleType"];
 
   return (
     <div>
-      <form onSubmit={ (e) => handleLogin(e)}>
+      <form onSubmit={ (e) => handleSignup(e)}>
 
         {inputType.map(element => {
           return <FormInput 
             type={element}
             name={element}
             handleFormInput={handleFormInput}
-            value={valueType[element]} 
-          />
+            value={valueType[element]} />
         })}
 
-        <button type={'submit'}>Log in</button>
+        <button type={'submit'}>Signup</button>
       </form>
     </div>
   )
 }
 
-export default LoginForm;
+export default SignupForm;
