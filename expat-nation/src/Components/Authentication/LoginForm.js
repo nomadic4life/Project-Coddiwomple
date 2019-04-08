@@ -2,17 +2,17 @@ import React from 'react';
 import FormInput from './FormInput'
 
 const LoginForm = props => {
-  const { username, password, handleFormInput, handleLogin } = props;
+  const { authentication: {username, password}, inputType, handleFormInput, handleLogin } = props;
   const valueType = [username, password];
-  const inputType = ["username", "password"];
 
   return (
-    <div>
+    <>
       <form onSubmit={ (e) => handleLogin(e)}>
 
-        {inputType.map(element => {
-          return <FormInput 
-            type={element}
+        {inputType.map((element, index) => {
+          console.log({[element]: valueType[index]})
+          return <FormInput key={element}
+            label={element}
             name={element}
             handleFormInput={handleFormInput}
             value={valueType[element]} 
@@ -21,7 +21,7 @@ const LoginForm = props => {
 
         <button type={'submit'}>Log in</button>
       </form>
-    </div>
+    </>
   )
 }
 

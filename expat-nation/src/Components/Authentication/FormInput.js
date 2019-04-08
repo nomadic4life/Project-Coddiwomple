@@ -1,11 +1,10 @@
 import React from 'react';
 
 const FormInput = props => {
-  const { type, name, value, handleFormInput } = props;
-
+  const { label, name, value, handleFormInput } = props;
   return (
     <label>
-      {type}
+      <span>{label}: </span>
       <input 
         type="text"
         name={name}

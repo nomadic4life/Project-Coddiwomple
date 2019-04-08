@@ -3,17 +3,22 @@ import LoginForm from './Components/Authentication/LoginForm'
 
 class App extends Component {
   state = {
-    Authentication: {
+    authentication: {
       username: '',
       password: '',
     },
+    inputType: {
+      signup: ['username', 'password', 'country'],
+      login: ['username', 'password'],
+    }
 
   }
 
   handleFormInput = e => {
+    console.log(e.target.value)
     this.setState({
-      Authentication: {
-        ...this.state.Authentication, 
+      authentication: {
+        ...this.state.authentication, 
         [e.target.name]: e.target.value 
       }
     })
@@ -24,7 +29,7 @@ class App extends Component {
     // here check for some authentication if true update state for authorization
 
     this.setState({
-      Authentication: {
+      authentication: {
         username: '', 
         password: '' 
        }
@@ -36,7 +41,9 @@ class App extends Component {
       <div className="App">
         <LoginForm
           handleFormInput={this.handleFormInput}
-          handleLogin={this.handleLogin} />
+          handleLogin={this.handleLogin}
+          inputType={this.state.inputType.login}
+          authentication={this.state.authentication} />
       </div>
     );
   }
