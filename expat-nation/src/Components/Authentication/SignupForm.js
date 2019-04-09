@@ -2,13 +2,10 @@ import React from 'react';
 import FormInput from './FormInput'
 
 const SignupForm= props => {
-  const { username, password, handleFormInput, handleLogin } = props;
-  const valueType = [username, password];
-  const inputType = ["username", "password", "age", "location", "gender", "styleType"];
 
   return (
     <div>
-      <form onSubmit={ (e) => handleSignup(e)}>
+      {/* <form onSubmit={ (e) => handleSignup(e)}>
 
         {inputType.map(element => {
           return <FormInput 
@@ -19,7 +16,8 @@ const SignupForm= props => {
         })}
 
         <button type={'submit'}>Signup</button>
-      </form>
+      </form> */}
+      <h1>render signup component</h1>
     </div>
   )
 }

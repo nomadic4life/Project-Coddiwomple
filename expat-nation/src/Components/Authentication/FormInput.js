@@ -6,7 +6,7 @@ const FormInput = props => {
     <label>
       <span>{label}: </span>
       <input 
-        type="text"
+        type={name === 'username' ? 'text' : 'password'}
         name={name}
         value={value}
         onChange={handleFormInput}

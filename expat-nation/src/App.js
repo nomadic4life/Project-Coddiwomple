@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import Authenticate from './Components/Authentication/Authenticate'
-import testAuthentication from './Components/Authentication/testAuthentication'
+import routeAuthentication from './Components/Authentication/routeAuthentication'
 import MainSection from './Components/Dashboard/Dashboard'
 import { Route } from 'react-router-dom'
+// import { withRouter } from 'react-router';
 import Dashboard from './Components/Dashboard/Dashboard';
 
-const Authorization = testAuthentication(Authenticate)(Dashboard);
+const Authorization = routeAuthentication(Authenticate)(Dashboard);
 
 class App extends Component {
   state = {
@@ -14,6 +15,14 @@ class App extends Component {
   }
 
   componentDidMount() {
+    console.log(localStorage.getItem('user'))
+    if(localStorage.getItem('user'))
+    this.setState({
+      isLogged: true,
+      // maybe can use cache for loading?
+      isLoaded: true // always set to true
+    })
+    else
     // here check for some authentication if true update state for authorization
     this.setState({
       isLogged: false,
@@ -21,6 +30,14 @@ class App extends Component {
       isLoaded: true // always set to true
     })
   }
+
+  updateAccess = isLogged => {
+    console.log('here', isLogged)
+    localStorage.setItem('user', true);
+    this.setState(
+      {isLogged: true}
+    )
+  } 
 
 
   render() {
@@ -33,10 +50,8 @@ class App extends Component {
         render={props => 
           <Authorization 
             {...props}
-            auth={this.state}
             isLogged={this.state.isLogged}
-            handleFormInput={this.handleFormInput}
-            handleLogin={this.handleLogin} 
+            updateAccess={this.updateAccess}
           />} 
       />
     )
