@@ -1,8 +1,33 @@
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom'
 
 const testAuthentication = Validate => Logged => props => {
-  if(!props.logged) return <Validate {...props} auth={props.auth}/>
-  return <Logged {...props} auth={props.auth}/>
+  const { auth, handleFormInput, handleLogin } = props;
+  console.log(props.isLogged)
+  if(!props.isLogged)
+    // Render Authorization if logged out
+    return (
+      <Route 
+        path='/' 
+        render={props => 
+          <Validate
+            {...props}
+          />} 
+      />
+    )
+
+else
+  // Render Dashboard if logged in
+  return (
+    <Route 
+      path='/' 
+      render={props => 
+        <Logged 
+          {...props}
+          auth={props.auth}
+        />} 
+    />
+  )
 }
   
 

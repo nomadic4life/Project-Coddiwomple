@@ -1,7 +1,8 @@
 import React from 'react';
 import FormInput from './FormInput'
 
-const LoginForm = props => {
+const AcessInterface = props => {
+  
   const { authentication: {username, password}, inputType, handleFormInput, handleLogin } = props;
   const valueType = [username, password];
 
@@ -9,8 +10,7 @@ const LoginForm = props => {
     <>
       <form onSubmit={ (e) => handleLogin(e)}>
 
-        {inputType.map((element, index) => {
-          console.log({[element]: valueType[index]})
+        {inputType.map( element => {
           return <FormInput key={element}
             label={element}
             name={element}
@@ -25,4 +25,4 @@ const LoginForm = props => {
   )
 }
 
-export default LoginForm;
+export default AcessInterface;
