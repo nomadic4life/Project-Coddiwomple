@@ -1,12 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import Dashboard from '../Dashboard/Dashboard';
 
 const routeAuthentication = Authenticate => Dashboard => props => {
   const { isLogged, updateAccess } = props;
 
   if(!isLogged) {
-    console.log(isLogged)
+
     // Render Authorization if logged out
     return (
       <Switch>
@@ -32,6 +31,7 @@ const routeAuthentication = Authenticate => Dashboard => props => {
   }
 
 else
+
   // Render Dashboard if logged in
   return (
     <Switch>

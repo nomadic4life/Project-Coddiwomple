@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import AccessInterface from './AccessInterface'
-import { Route } from 'react-router-dom'
 import SignupForm from './SignupForm';
 
 
-class App extends Component {
+class Authenticate extends Component {
   state = {
     authentication: {
       username: '',
@@ -14,16 +13,24 @@ class App extends Component {
     inputType: {
       signup: ['username', 'password', 'country'],
       login: ['username', 'password'],
+    },
+    singupType: {
+      email: '',
+      emailConfirmation: '',
+      passwordConfirmation: '',
+      birthday: '',
+      country: '',
+      state: '',
+      provience: '',
+      city: '',
+      maninciple: '',
+      zip: '',
+      number: '',
+      interests: [],
+      tags: [],
+      userThumbnail: '',
     }
   }
-
-  // componentDidMount() {
-  //   this.setState({
-  //     logged: false,
-  //     // maybe can use cache for loading?
-  //     loaded: true // always set to true
-  //   })
-  // }
 
   updateAcessType = () => {
 
@@ -69,27 +76,49 @@ class App extends Component {
 
     // condition for login or signup
     if(authentication.activeAccess === 'login') {
-      this.props.updateAccess()
-      // update login state to true
-      // route to /dashboard
+      // axios request to check credentials
+      // if credientials true
+        // update local storage
+        // update state to true
+        // update state of userdata
+        // paganiate data for wall
+        // redirect to dashboard
+        this.props.updateAccess()
+      // if false redirect to login with error
+        // 5 attempts before cooldown
+        //
 
-      // check server for credentials
-      // if false allow for 5 reattempts
-      // if true 
-      // update local storage
-      // update state in app or redux
-      // updaate render
-      // update route
     } else {
-      // update some signup
-      // route to /signup form
+      // if signup
+        // route to /signup form
     }
     
   }
 
+  handleSignup = e => {
+    // axios post request
+    // check if correct information
+      // if correct information database will update with new user
+      // send back information of new user
+      // update state logged in to true
+      // update state of user information
+      // route to /dashboard
+    // if incorrect tell user and redirect to signup
+
+  }
+
   render() {
     if(this.props.match.url === '/signup')
-      return <SignupForm />
+      return (
+        <SignupForm 
+          handleFormInput={this.handleFormInput}
+          handleSignup={this.handleSignup}
+          authentication={this.state.authentication}
+          singupType={this.state.singupType}
+          inputType={this.state.inputType.signup}
+        />
+      )
+
     return (
       <AccessInterface
         handleFormInput={this.handleFormInput}
@@ -103,4 +132,4 @@ class App extends Component {
 
 }
 
-export default App;
+export default Authenticate;

@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import Authenticate from './Components/Authentication/Authenticate'
+import { withRouter } from 'react-router-dom'
 import routeAuthentication from './Components/Authentication/routeAuthentication'
-import MainSection from './Components/Dashboard/Dashboard'
-import { Route } from 'react-router-dom'
-// import { withRouter } from 'react-router';
+import Authenticate from './Components/Authentication/Authenticate'
 import Dashboard from './Components/Dashboard/Dashboard';
+import Loading from './Components/Dashboard/Loading'
 
-const Authorization = routeAuthentication(Authenticate)(Dashboard);
+const Authorization = withRouter(routeAuthentication(Authenticate)(Dashboard));
 
 class App extends Component {
   state = {
@@ -31,7 +30,6 @@ class App extends Component {
   }
 
   updateAccess = isLogged => {
-    console.log('here', isLogged)
     localStorage.setItem('user', true);
     this.setState(
       {isLogged: true}
@@ -41,21 +39,15 @@ class App extends Component {
 
   render() {
     if(!this.state.isLoaded) 
-      return <h1>our temporary loading Component</h1>
+      return <Loading />
       
     return (
-      <Route 
-        path='/' 
-        render={props => 
-          <Authorization 
-            {...props}
-            isLogged={this.state.isLogged}
-            updateAccess={this.updateAccess}
-          />} 
+      <Authorization 
+        isLogged={this.state.isLogged}
+        updateAccess={this.updateAccess}
       />
     )
   }
-
 }
 
 export default App;
