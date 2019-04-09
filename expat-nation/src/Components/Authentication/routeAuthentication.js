@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import Dashboard from '../Dashboard/Dashboard';
 
 const routeAuthentication = Authenticate => Dashboard => props => {
@@ -34,14 +34,19 @@ const routeAuthentication = Authenticate => Dashboard => props => {
 else
   // Render Dashboard if logged in
   return (
-    <Route 
-      path='/' 
-      render={props => 
-        <Dashboard 
-          {...props}
-          auth={props.auth}
-        />} 
-    />
+    <Switch>
+      <Route 
+        exact
+        path='/' 
+        render={props => 
+          <Dashboard 
+            {...props}
+            auth={props.auth}
+          />} 
+      />
+      <Redirect to="/" />
+    </Switch>
+
   )
 }
   

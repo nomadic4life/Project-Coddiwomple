@@ -15,20 +15,19 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log(localStorage.getItem('user'))
+
     if(localStorage.getItem('user'))
-    this.setState({
-      isLogged: true,
-      // maybe can use cache for loading?
-      isLoaded: true // always set to true
-    })
+      // maybe can use cache for loading if logged in?
+      this.setState({
+        isLogged: true,
+        isLoaded: true // always set to true
+      })
+
     else
-    // here check for some authentication if true update state for authorization
-    this.setState({
-      isLogged: false,
-      // maybe can use cache for loading?
-      isLoaded: true // always set to true
-    })
+      this.setState({
+        isLogged: false,
+        isLoaded: true // always set to true
+      })
   }
 
   updateAccess = isLogged => {
