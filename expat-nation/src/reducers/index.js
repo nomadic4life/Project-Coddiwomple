@@ -39,6 +39,11 @@ import {
 */
 
 const initialExpatsState = {
+  isLogged: false,
+  isLoaded: false,
+  userDetails: {},
+  content: {},
+  // useless data
   expats: [],
   fetchingExpats: false,
   addingExpat: false,

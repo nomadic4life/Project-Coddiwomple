@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux';
 import routeAuthentication from './Components/Authentication/routeAuthentication'
 import Authenticate from './Components/Authentication/Authenticate'
 import Dashboard from './Components/Dashboard/Dashboard';
@@ -38,16 +39,26 @@ class App extends Component {
 
 
   render() {
-    if(!this.state.isLoaded) 
+    if(!this.props.isLoaded) 
       return <Loading />
       
     return (
       <Authorization 
-        isLogged={this.state.isLogged}
+        isLogged={this.props.isLogged}
         updateAccess={this.updateAccess}
       />
     )
   }
 }
 
-export default App;
+// export default App;
+
+const mapStateToProps = state => {
+  return {
+    isLogged: state.isLogged,
+    isLoaded: state.isLoaded
+  }
+}
+export default connect(
+  mapStateToProps,
+  { })(App);
