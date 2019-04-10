@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
+import { checkIsLoggedIn } from './actions';
+
 import routeAuthentication from './Components/Authentication/routeAuthentication'
 import Authenticate from './Components/Authentication/Authenticate'
 import Dashboard from './Components/Dashboard/Dashboard';
@@ -9,30 +11,31 @@ import Loading from './Components/Dashboard/Loading'
 const Authorization = withRouter(routeAuthentication(Authenticate)(Dashboard));
 
 class App extends Component {
-  state = {
-    isLogged: false,
-    isLoaded: false,
-  }
 
   componentDidMount() {
 
     if(localStorage.getItem('user'))
-      // maybe can use cache for loading if logged in?
-      this.setState({
+
+      this.props.checkIsLoggedIn({
         isLogged: true,
-        isLoaded: true // always set to true
       })
+      // maybe can use cache for loading if logged in?
+        // if data in cache load from cache
+        // update only nessarry data
+      // if no cache
+        // axios call
+        // update data
+        // update state
 
     else
-      this.setState({
+      this.props.checkIsLoggedIn({
         isLogged: false,
-        isLoaded: true // always set to true
       })
   }
 
   updateAccess = isLogged => {
     localStorage.setItem('user', true);
-    this.setState(
+    this.props.checkIsLoggedIn(
       {isLogged: true}
     )
   } 
@@ -51,8 +54,6 @@ class App extends Component {
   }
 }
 
-// export default App;
-
 const mapStateToProps = state => {
   return {
     isLogged: state.isLogged,
@@ -61,4 +62,4 @@ const mapStateToProps = state => {
 }
 export default connect(
   mapStateToProps,
-  { })(App);
+  { checkIsLoggedIn })(App);

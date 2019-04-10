@@ -1,4 +1,5 @@
 import axios from 'axios';
+export const CHECK_USER_LOGGED = "CHECK_USER_LOGGED";
 export const FETCH_EXPATS_START = "FETCH_EXPATS_START";
 export const FETCH_EXPATS_SUCCESS = "FETCH_EXPATS_SUCCESS";
 export const FETCH_EXPATS_FAILURE = "FETCH_EXPATS_FAILURE";
@@ -29,67 +30,71 @@ export const SELECTING_EXPATS = "SELECTING_EXPATS";
    D - deleteExpat
 */
 
-export const addExpat = expat => dispatch => {
-  console.log('adding expat', expat)
-  dispatch({type: ADD_EXPATS_START});
-  axios
-    .post('http://localhost:3333/expats', expat)
-    .then(res => {
-      console.log(res)
-      dispatch({
-        type: ADD_EXPATS_SUCCESS,
-        payload: res.data
-      })
-    })
-    .catch(err => dispatch({ type: ADD_EXPATS_FAILURE, payload: err }))
+export const checkIsLoggedIn = log => dispatch => {
+  dispatch({type: CHECK_USER_LOGGED, payload: log});
 }
 
-export const getExpat = () => dispatch => {
-  dispatch({type: FETCH_EXPATS_START});
-  axios
-    .get('http://localhost:3333/expats')
-    .then(res => {
-      console.log(res)
-      console.log('fetch finished');
-      dispatch({
-        type: FETCH_EXPATS_SUCCESS,
-        payload: res.data
-      })
-    })
-    .catch(err => dispatch({ type: FETCH_EXPATS_FAILURE, payload: err }))
-}
+// export const addExpat = expat => dispatch => {
+//   console.log('adding expat', expat)
+//   dispatch({type: ADD_EXPATS_START});
+//   axios
+//     .post('http://localhost:3333/expats', expat)
+//     .then(res => {
+//       console.log(res)
+//       dispatch({
+//         type: ADD_EXPATS_SUCCESS,
+//         payload: res.data
+//       })
+//     })
+//     .catch(err => dispatch({ type: ADD_EXPATS_FAILURE, payload: err }))
+// }
 
-export const deleteExpat = id => dispatch => {
-  console.log('deleting expat', id)
-  dispatch({type: DELETE_EXPATS_START});
-  axios
-    .delete(`http://localhost:3333/expats/${id}`)
-    .then(res => {
-      console.log(res)
-      dispatch({
-        type: DELETE_EXPATS_SUCCESS,
-        payload: res.data
-      })
-    })
-    .catch(err => dispatch({ type: DELETE_EXPATS_FAILURE, payload: err }))
-}
+// export const getExpat = () => dispatch => {
+//   dispatch({type: FETCH_EXPATS_START});
+//   axios
+//     .get('http://localhost:3333/expats')
+//     .then(res => {
+//       console.log(res)
+//       console.log('fetch finished');
+//       dispatch({
+//         type: FETCH_EXPATS_SUCCESS,
+//         payload: res.data
+//       })
+//     })
+//     .catch(err => dispatch({ type: FETCH_EXPATS_FAILURE, payload: err }))
+// }
 
-export const updateExpat = (id, expat) => dispatch => {
-  console.log('deleting expat', id)
-  dispatch({type: UPDATE_EXPATS_START});
-  axios
-    .put(`http://localhost:3333/expats/${id}`, expat)
-    .then(res => {
-      console.log(res)
-      dispatch({
-        type: UPDATE_EXPATS_SUCCESS,
-        payload: res.data
-      })
-    })
-    .catch(err => dispatch({ type: UPDATE_EXPATS_FAILURE, payload: err }))
-}
+// export const deleteExpat = id => dispatch => {
+//   console.log('deleting expat', id)
+//   dispatch({type: DELETE_EXPATS_START});
+//   axios
+//     .delete(`http://localhost:3333/expats/${id}`)
+//     .then(res => {
+//       console.log(res)
+//       dispatch({
+//         type: DELETE_EXPATS_SUCCESS,
+//         payload: res.data
+//       })
+//     })
+//     .catch(err => dispatch({ type: DELETE_EXPATS_FAILURE, payload: err }))
+// }
 
-export const selectingExpat = expat => dispatch => {
-  console.log('selecting expat',expat)
-  dispatch({type: SELECTING_EXPATS, payload: expat});
-}
+// export const updateExpat = (id, expat) => dispatch => {
+//   console.log('deleting expat', id)
+//   dispatch({type: UPDATE_EXPATS_START});
+//   axios
+//     .put(`http://localhost:3333/expats/${id}`, expat)
+//     .then(res => {
+//       console.log(res)
+//       dispatch({
+//         type: UPDATE_EXPATS_SUCCESS,
+//         payload: res.data
+//       })
+//     })
+//     .catch(err => dispatch({ type: UPDATE_EXPATS_FAILURE, payload: err }))
+// }
+
+// export const selectingExpat = expat => dispatch => {
+//   console.log('selecting expat',expat)
+//   dispatch({type: SELECTING_EXPATS, payload: expat});
+// }
