@@ -1,35 +1,10 @@
 const { GraphQLServer } = require('graphql-yoga');
-
-const dinnerOptions = ['🍕', '🌭', '🍔', '🥗', '🍣'];
-const users = [{
-  id: "1",
-  username: "nomadic4life",
-  password: "password1234"
-},
-{ id: "2",
-  username: "nomadic4life",
-  password: "password1234"
-}];
-
-const typeDefs = `
-
-  type Query {
-    whatsForDinner: String!
-    Users: String!
-  }
-`;
+const { Query, Mutation, Users } = require('./src/resolvers')
 
 const resolvers = {
-  Query: {
-    whatsForDinner: () => {
-      const idx = Math.floor(Math.random() * dinnerOptions.length);
-      const foodChoice = dinnerOptions[idx];
-      return `Tonight we eat ${foodChoice}`;
-    },
-    Users: () => {
-      return "users";
-    }
-  }
+  Query,
+  Mutation,
+  Users
 };
 
 const opts = {
@@ -38,7 +13,7 @@ const opts = {
 };
 
 const server = new GraphQLServer({
-  typeDefs,
+  typeDefs: './src/schema.graphql',
   resolvers,
 });
 
