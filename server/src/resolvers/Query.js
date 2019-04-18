@@ -1,24 +1,17 @@
-const users = [{
-  id: "user-1",
-  username: "nomadic4life",
-  password: "password1234"
-},
-{ 
-  id: "user-2",
-  username: "Mutiny",
-  password: "destroy"
-}];
-
-const Users = () => {
-  return users;
+const Users = (root, args, context, info) => {
+  // for testing will remove or add some authorization for access
+  // or have password not returned
+  // or filter out some data before returning
+  return context.prisma.users();
 }
 
-const User = (_, {id}) => {
-  const user = users.find(x => x.id === id);
-  if (!user) {
-    throw new Error('Cannot find your todo!');
-  }
-  return user;
+const User = (root, args, context, info) => {
+  // for testing will remove or add some authorization for access
+  // or have password not returned
+  // or filter out some data before returning
+  return context.prisma.user({
+    id: args.id
+  })
 }
 
 module.exports = {

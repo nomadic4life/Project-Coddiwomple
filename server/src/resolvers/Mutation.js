@@ -56,32 +56,35 @@ const { APP_SECRET, getUserId } = require('../utils')
 //   vote,
 // }
 
-const users = [{
-  id: "user-1",
-  username: "nomadic4life",
-  password: "password1234"
-},
-{ id: "user=2",
-  username: "Mutiny",
-  password: "destroy"
-}];
+const createUser = async (root, args, context) => {
 
-let idCount = users.length;
-
-
-const createUser = (parent, args) => {
-    const user = {
-    id: `user-${idCount++}`,
-    username: args.username,
-    password: args.password,
+   const password = await bcrypt.hash(args.password, 10)
+   const user = await context.prisma.createUser({ ...args, password })
+   const token = jwt.sign({ userId: user.id }, APP_SECRET)
+ 
+  return {
+    token,
+    user,
   }
-  users.push(user)
-  return user
 }
 
-const connectUser = (parent, args) => {
-  const user = users.find(user => user.username === args.username );
-  return user
+const connectUser = async (root, args, context) => {
+  const user = await context.prisma.user({ username: args.username })
+  if (!user) {
+    throw new Error('No such user found')
+  }
+
+  const valid = await bcrypt.compare(args.password, user.password)
+  if (!valid) {
+    throw new Error('Invalid password')
+  }
+
+  const token = jwt.sign({ userId: user.id }, APP_SECRET)
+
+  return {
+    token,
+    user,
+  }
 }
 
 module.exports = {
