@@ -1,25 +1,34 @@
  type Query {
   Users: [User!]!
   User(id: ID! username: String): User!
+  Posts: [Post!]!
 }
-
-# type Mutation {
-#   createUser(username: String!, password: String!): User!
-#   connectUser(username: String!, password: String!): User
-# }
 
 type Mutation {
   createUser(username: String!, password: String!): AuthPayload
   connectUser(username: String!, password: String!): AuthPayload
-}
-
-type User {
-  id: ID!
-  username: String!
-  password: String!
+  post(userId: ID, username: String content: String!): Post
 }
 
 type AuthPayload {
   token: String
   user: User
+}
+
+type User {
+  id: ID!
+  username: String!
+  posts: [Post!]!
+  # password: String!
+}
+
+# type UserProfile {
+#   User: User
+#   Friends: [Friends!]!
+# }
+
+type Post {
+  id: ID!
+  postedBy: User
+  content: String!
 }

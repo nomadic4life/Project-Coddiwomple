@@ -1,10 +1,12 @@
 
-const id = (parent) => parent.id
-const username = (parent) => parent.username
-const password = (parent) => parent.password
+const id = root => root.id
+const username = root => root.username
+const posts = (root, args, context) => {
+  return context.prisma.user({ id: root.id }).post()
+}
 
 module.exports = {
   id,
   username,
-  password,
+  posts,
 }
