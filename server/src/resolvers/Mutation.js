@@ -43,8 +43,26 @@ const post = (root, args, context) => {
   });
 }
 
+const vote = async (root, args, context, info) => {
+  const userId = authenticateUser(context)
+  const postExists = await context.prisma.$exists.vote({
+    user: { id: userId },
+    post: { id: args.postId },
+  })
+
+  if (postExists) {
+    throw new Error(`Already voted for post: ${args.postId}`)
+  }
+
+  return context.prisma.createVote({
+    user: { connect: { id: userId } },
+    post: { connect: { id: args.postId } },
+  })
+}
+
 module.exports = {
   createUser,
   connectUser,
-  post
+  post,
+  vote,
 }
