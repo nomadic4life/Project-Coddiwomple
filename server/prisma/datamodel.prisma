@@ -1,0 +1,23 @@
+type User {
+  id: ID! @id @unique
+  createdAt: DateTime! @createdAt
+  username: String! @unique
+  password: String!
+  post: [Post!]!
+  votes: [Vote!]!
+}
+
+type Post {
+  id: ID! @id @unique
+  createdAt: DateTime! @createdAt
+  postedBy: User
+  content: String 
+  votes: [Vote!]!
+}
+
+type Vote {
+  id: ID! @id @unique
+  createdAt: DateTime! @createdAt
+  post: Post!
+  user: User!
+}

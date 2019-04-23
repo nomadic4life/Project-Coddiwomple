@@ -8,6 +8,8 @@ import Authenticate from './Components/Authentication/Authenticate'
 import Dashboard from './Components/Dashboard/Dashboard';
 import Loading from './Components/Dashboard/Loading'
 
+// adding a comment so I can make a commit
+
 const Authorization = withRouter(routeAuthentication(Authenticate)(Dashboard));
 
 class App extends Component {
